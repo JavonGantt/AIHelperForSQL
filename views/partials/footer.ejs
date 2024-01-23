@@ -1,0 +1,36 @@
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function() {
+        $('#generateButton').click(function() {
+            var userInput = $('#inputQuery').val();
+            var selectedOption = $('#selectedOption').val();
+            var databaseOption = $('#selectedDatabase').val();
+            console.log(userInput)
+            console.log(selectedOption)
+            console.log(databaseOption)
+            $.ajax({
+            url: '/generate-sql',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ query: userInput, option: selectedOption, database: databaseOption }),
+            success: function(response) {
+                $('#outputSQL').text(response.sql);
+            }
+            });
+        });
+    });
+
+    function setDropdownValue(value) {
+        $('#selectedOption').val(value);
+    }
+
+    function setDatabaseDropdownValue(value) {
+        $('#selectedDatabase').val(value);
+    }
+
+</script>
+
+
+
+</body>
+</html>

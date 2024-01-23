@@ -1,0 +1,50 @@
+<%- include('partials/header.ejs') %>
+
+<div class="container">
+    <div class="row">
+        <!-- Input Area -->
+        <div class="col-md-6">
+            <textarea class="form-control mb-2" id="inputQuery" rows="3" placeholder="Enter what type of query you need"></textarea>
+            <button class="btn btn-primary" id="generateButton">Generate</button>
+
+
+            <div class="dropdown d-inline">
+                <!-- <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Generate
+                </button> -->
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item"  onclick="setDropdownValue('Generate')">Generate</a>
+                    <a class="dropdown-item"  onclick="setDropdownValue('Fix')">Fix</a>
+                    <a class="dropdown-item"  onclick="setDropdownValue('Explain')">Explain</a>
+                </div>
+                <input type="hidden" id="selectedOption" value="Generate"/>
+            </div>
+            <div class="dropdown d-inline">
+                <!-- <button class="btn btn-info dropdown-toggle" type="button" id="databaseDropdownButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Database
+                </button> -->
+                <div class="dropdown-menu" aria-labelledby="databaseDropdownButton">
+                    <a class="dropdown-item"  onclick="setDatabaseDropdownValue('Salesforce')">Salesforce</a>
+                    <a class="dropdown-item"  onclick="setDatabaseDropdownValue('Oracle')">Oracle</a>
+                </div>
+                <input type="hidden" id="selectedDatabase" value="Salesforce"/>
+            </div>
+        </div>
+
+        <!-- Output Area -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body" id="outputSQL">
+                    SQL query output will appear here...
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<%- include('partials/footer.ejs') %>
