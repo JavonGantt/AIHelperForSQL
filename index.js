@@ -4,7 +4,6 @@ import express from "express"
 import axios from "axios"
 import bodyParser from "body-parser"
 import OpenAI from 'openai';
-import  HierarchicalNSW  from 'hnswlib-node';
 
 const app = express();
 const port = 3000;
@@ -41,6 +40,71 @@ const openai = new OpenAI({
 
 
 // works, but doesn't return the assistants second message.
+// async function generateSQLQuery(queryDescription) {
+
+//   //initialize the conversation space
+//   const thread = await openai.beta.threads.create();
+//   //handles the message from the user
+//   const message = await openai.beta.threads.messages.create(
+//     thread.id,
+//     {
+//       role: "user",
+//       content: queryDescription
+//     }
+
+//   )
+
+//   const run = await openai.beta.threads.runs.create(
+//     thread.id,
+//     { 
+//       assistant_id: assistantID
+//     }
+//   );
+
+//   await new Promise(resolve => setTimeout(resolve, 20000)); // Wait for the assistant to respond
+
+//   const messages = await openai.beta.threads.messages.list(
+//     thread.id,
+//   );
+
+//   // Assuming the second message in the list is the assistant's response
+//  // Assuming messages.data is the array you've shown
+// const messagesArray = messages.data; // or however you retrieve this array
+
+// // Check if the first message is from the assistant and access its content
+// if (messagesArray[0].role === 'assistant') {
+//     const assistantMessageContent = messagesArray[0].content; // This is an array of objects
+
+//     // Accessing the text of the message
+//     // You'll need to determine the structure of the object inside content array
+//     // Assuming it has a property like 'text'
+//     const assistantMessageText = assistantMessageContent[0].text.value;
+
+//     console.log( "assistant response" + assistantMessageText);
+
+//     const response = await openai.chat.completions.create({
+//       model: "ft:gpt-3.5-turbo-1106:personal::8jvEI4Vi",
+//       messages: [
+//         {
+//           "role": "user",
+//           "content": assistantMessageText
+//         }
+//       ],
+//       temperature: 1,
+//       max_tokens: 4096,
+//       top_p: 1,
+//       frequency_penalty: 0,
+//       presence_penalty: 0,
+//     });
+  
+//   console.log( "Final Message " + response.choices[0].message.content)
+
+//   return  response.choices[0].message.content
+// }
+
+// }
+
+
 async function generateSQLQuery(queryDescription) {
 
   //initialize the conversation space
@@ -67,19 +131,8 @@ async function generateSQLQuery(queryDescription) {
   const messages = await openai.beta.threads.messages.list(
     thread.id,
   );
-
-  // Assuming the second message in the list is the assistant's response
- // Assuming messages.data is the array you've shown
-const messagesArray = messages.data; // or however you retrieve this array
-
-// Check if the first message is from the assistant and access its content
-if (messagesArray[0].role === 'assistant') {
-    const assistantMessageContent = messagesArray[0].content; // This is an array of objects
-
-    // Accessing the text of the message
-    // You'll need to determine the structure of the object inside content array
-    // Assuming it has a property like 'text'
-    const assistantMessageText = assistantMessageContent[0].text.value;
+  console.log(messages.data[0].content[0].text.value)
+    const assistantMessageText = messages.data[0].content[0].text.value;
 
     console.log( "assistant response" + assistantMessageText);
 
@@ -101,8 +154,6 @@ if (messagesArray[0].role === 'assistant') {
   console.log( "Final Message " + response.choices[0].message.content)
 
   return  response.choices[0].message.content
-}
-
 }
 
 
