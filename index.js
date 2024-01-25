@@ -47,20 +47,6 @@ const openai = new OpenAI({
 
 
 
-// This function will make a call to chatGPT Model gpt-3.5-turbo. If not wanting to use assistant, revisit this
-// async function generateSQLQuery(queryDescription) {
-//   const completion = await openai.chat.completions.create({
-//     messages: [{ role: "user", content: queryDescription }],
-//     model: "gpt-3.5-turbo",
-//     max_tokens: 700
-//   });
-// }
-
-
-
-
-
-
 
 
   const model = new ChatOpenAI({ modelName: "gpt-4" });
